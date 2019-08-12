@@ -1,0 +1,9 @@
+.hide-redo{
+    display: none;
+}
+.hide-done{
+    display: none;
+}
+.taskButton{
+    float: right;
+}

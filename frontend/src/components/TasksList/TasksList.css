@@ -1,0 +1,8 @@
+li{
+    border: 3px solid rgb(206, 206, 6);
+   padding: 5px;
+   background-color: bisque;
+   margin: 3px;
+   list-style: none;
+}
+
