@@ -1,0 +1,54 @@
+body{
+    background-color: rgb(240, 243, 243)
+}
+
+#head{
+    color: #00b7ef;
+    font-size: 30px;
+    font : Anton
+
+}
+ul{
+    list-style-type: none;
+}
+#post{
+    border: 3px solid #00b7ef;
+    max-width: 800px;
+    height: auto;
+}
+#post-title{
+    font:anton;
+    font-size: 30px;
+    color: #00b7ef;
+}
+#post-content{
+    font:arial;
+    font-size: 16px;
+    color: #c1bfc0;
+}
+#post-author{
+    font:pinyon script;
+    font-size: 24px;
+    color: black;
+}
+
+#add-post{
+ border: 1px dashed black;
+ margin: 20px;
+ padding: 5px;
+}
+#btn-add-post{
+    font: font awesome plus;
+    font-size: 16px;
+    background-color: #66cdaa;
+    color: white;
+    cursor: pointer;
+    border-radius: 3px;
+
+}
+/*  when the screen is on mobile state: */
+/* @media only screen and (max-width: 600px) {
+    body {
+      background-color: lightblue;
+    }
+  } */

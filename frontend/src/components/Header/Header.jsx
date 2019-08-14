@@ -28,9 +28,9 @@ class Header extends React.Component {
                     <a>Take care of your TIME</a>
                     <div className="header-right">
                        
-                        <a className="active" href="#home">Home</a>
-                        <a href="#contact">Contact</a>
-                        <a href="#about">About</a>
+                        <a className="active" href="#">Home</a>
+                        <a href="#">Contact</a>
+                        <a href="#">About</a>
                     </div>
                 </div>
 

@@ -4,6 +4,7 @@ import Footer from "../Footer/Footer"
 import TasksList from "../TasksList/TasksList"
 import TaskForm from "../TaskForm/TaskForm"
 import "./Container.css"
+import * as api from "../../utils/todoApi";
 class Container extends React.Component {
     constructor() {
         super();
@@ -14,15 +15,33 @@ class Container extends React.Component {
         this.handleNewTask = this.handleNewTask.bind(this);
         this.handleRemove = this.handleRemove.bind(this);
         this.handleDone = this.handleDone.bind(this);
-        this.handleRemoveFromDoneList =this.handleRemoveFromDoneList.bind(this);
-        this.handleRedo= this.handleRedo.bind(this);
+        this.handleRemoveFromDoneList = this.handleRemoveFromDoneList.bind(this);
+        this.handleRedo = this.handleRedo.bind(this);
         this.handleByPriority = this.handleByPriority.bind(this);
     }
-    handleNewTask(task) {
-        this.setState({
-            tasks: [...this.state.tasks, task]
-        })
+    componentDidMount() {
+        api.getTasks(
+            oldTasks => {
+                this.setState({ tasks: oldTasks.all })
+            },
+            error => {
+                console.log(error);
+            });
     }
+    handleNewTask(task) {
+        api.createTask(task,
+            newTask => {
+                this.setState({
+                    tasks: [...this.state.tasks, newTask]
+                });
+            },
+            error => { console.log(error); }
+
+        )
+
+    }
+
+
     handleDone(taskid) {
         // move the task from the tasks list and put it in done list
         let tasks = Object.assign([], this.state.tasks);
@@ -30,16 +49,16 @@ class Container extends React.Component {
         this.setState({
             doneTasks: [...this.state.doneTasks, doneTask[0]],
             tasks: tasks,
-            isStar:false,
-            byPriority : false
+            isStar: false,
+            byPriority: false
         })
     }
-    handleByPriority(){
+    handleByPriority() {
         // take the array and show it by priority:
-        let tasks= Object.assign([], this.state.tasks);
-        tasks.sort((a,b) => (parseInt(a.priority) < parseInt(b.priority)) ? 1 : ((parseInt(b.priority) < parseInt(a.priority)) ? -1 : 0));
+        let tasks = Object.assign([], this.state.tasks);
+        tasks.sort((a, b) => (parseInt(a.priority) < parseInt(b.priority)) ? 1 : ((parseInt(b.priority) < parseInt(a.priority)) ? -1 : 0));
         this.setState({
-           tasks:tasks 
+            tasks: tasks
         })
     }
     handleRemove(taskid) {
@@ -56,11 +75,11 @@ class Container extends React.Component {
             doneTasks: doneTasks
         })
     }
-    handleRedo(taskid){
+    handleRedo(taskid) {
         let doneTasks = [...this.state.doneTasks];
         let tasks = doneTasks.splice(taskid, 1);
         this.setState({
-            tasks: [...this.state.tasks,tasks[0]],
+            tasks: [...this.state.tasks, tasks[0]],
             doneTasks: doneTasks
         })
     }
