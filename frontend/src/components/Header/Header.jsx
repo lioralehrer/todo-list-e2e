@@ -15,7 +15,7 @@ class Header extends React.Component {
     componentDidMount(){
          this.interval = setInterval(()=>this.tick(),1000);
          }
-    componentWillMount(){
+    componentWillUnmount(){
         clearInterval(this.interval);
     }
    
