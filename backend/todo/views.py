@@ -37,12 +37,29 @@ def create_new_task(request):
 
 @require_http_methods(['DELETE'])
 def delete_task(request):
-    print ("inside delete")
-    # try:
+    try:
+        data = json.loads(request.body)
+        print("data= "+str(data))
+        Task.objects.get(id=data["id"]).delete()
+        new_data = list(Task.objects.values())
+        return JsonResponse({"all":new_data}, status=200)
+    except Exception as ex:
+        return JsonResponse({"error":str(ex)}, status=500)
+
+@require_http_methods(['PUT'])
+def done_task(request):
     data = json.loads(request.body)
     print("data= "+str(data))
-    Task.objects.get(id=data["id"]).delete()
-    new_data = list(Task.objects.values())
-    return JsonResponse({"all":new_data}, status=200)
-    # except Exception as ex:
-        # return JsonResponse({"error":str(ex)}, status=500)
+    task = Task.objects.get(id=data["id"]) 
+    task.state= "DONE" 
+    task.save() 
+    return JsonResponse(model_to_dict(task),status=200)     
+
+@require_http_methods(['PUT'])
+def redo_task(request):
+    data = json.loads(request.body)
+    print("data= "+str(data))
+    task = Task.objects.get(id=data["id"]) 
+    task.state= "TODO" 
+    task.save() 
+    return JsonResponse(model_to_dict(task),status=200) 

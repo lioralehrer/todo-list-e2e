@@ -53,12 +53,32 @@ export function createTask(task, successCallback, errorCallback) {
     });
 }
 
-export function removeTask(task, successCallback, errorCallback){
+export function removeTask(taskid, successCallback, errorCallback){
     $.ajax({
         type: "DELETE",
         url: "/tasks/delete",
         contentType: "application/json",
+        data: JSON.stringify({"id":taskid}),
+        success: successCallback,
+        error: errorCallback
+    });
+}
+export function doneTask(task, successCallback, errorCallback){
+    $.ajax({
+        type: "PUT",
+        url: "/tasks/done",
+        contentType: "application/json",
         data: JSON.stringify({"id":task}),
+        success: successCallback,
+        error: errorCallback
+    });
+}
+export function redoTask(taskid, successCallback, errorCallback){
+    $.ajax({
+        type: "PUT",
+        url: "/tasks/redo",
+        contentType: "application/json",
+        data: JSON.stringify({"id":taskid}),
         success: successCallback,
         error: errorCallback
     });

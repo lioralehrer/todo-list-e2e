@@ -15,18 +15,35 @@ class Container extends React.Component {
         this.handleNewTask = this.handleNewTask.bind(this);
         this.handleRemove = this.handleRemove.bind(this);
         this.handleDone = this.handleDone.bind(this);
-        this.handleRemoveFromDoneList = this.handleRemoveFromDoneList.bind(this);
         this.handleRedo = this.handleRedo.bind(this);
         this.handleByPriority = this.handleByPriority.bind(this);
+        this.getAllTasks = this.getAllTasks.bind(this);
     }
-    componentDidMount() {
+    getAllTasks() {
         api.getTasks(
             oldTasks => {
-                this.setState({ tasks: oldTasks.all })
+                var tasks = []
+                var doneTasks = []
+                for (var i = 0; i < oldTasks.all.length; i++) {
+                    if (oldTasks.all[i].state == "TODO") {
+                        tasks.push(oldTasks.all[i])
+                    }
+                    else {
+                        doneTasks.push(oldTasks.all[i])
+                    }
+                }
+                this.setState({
+                    tasks: tasks,
+                    doneTasks: doneTasks
+                })
             },
             error => {
                 console.log(error);
             });
+
+    }
+    componentDidMount() {
+        this.getAllTasks()
     }
     handleNewTask(task) {
         api.createTask(task,
@@ -43,73 +60,74 @@ class Container extends React.Component {
 
 
     handleDone(taskid) {
-        // move the task from the tasks list and put it in done list
-        let tasks = Object.assign([], this.state.tasks);
-        let doneTask = tasks.splice(taskid, 1);
-        this.setState({
-            doneTasks: [...this.state.doneTasks, doneTask[0]],
-            tasks: tasks,
-            isStar: false,
-            byPriority: false
-        })
-    }
-    handleByPriority() {
-        // take the array and show it by priority:
-        let tasks = Object.assign([], this.state.tasks);
-        tasks.sort((a, b) => (parseInt(a.priority) < parseInt(b.priority)) ? 1 : ((parseInt(b.priority) < parseInt(a.priority)) ? -1 : 0));
-        this.setState({
-            tasks: tasks
-        })
-    }
-    handleRemove(taskid) {
-        api.removeTask(taskid,
-            editedtasks => {
-                let tasks = Object.assign([], editedtasks.all);
-                this.setState({  tasks: tasks })
+        api.doneTask(taskid,
+            donetask => {
+                this.getAllTasks();
             },
-                error => { console.log(error); }
-                    
-           );
-    }
-    handleRemoveFromDoneList(taskid) {
-        let doneTasks = [...this.state.doneTasks];
-        doneTasks.splice(taskid, 1);
-        this.setState({
-            doneTasks: doneTasks
-        })
+            error => { console.log(error); }
+
+        );
+
     }
     handleRedo(taskid) {
-        let doneTasks = [...this.state.doneTasks];
-        let tasks = doneTasks.splice(taskid, 1);
-        this.setState({
-            tasks: [...this.state.tasks, tasks[0]],
-            doneTasks: doneTasks
-        })
+        api.redoTask(taskid,
+            redoTask => {
+                this.getAllTasks();
+            },
+            error => { console.log(error); }
+        );
     }
+    // let doneTasks = [...this.state.doneTasks];
+    // let tasks = doneTasks.splice(taskid, 1);
+    // this.setState({
+    //     tasks: [...this.state.tasks, tasks[0]],
+    //     doneTasks: doneTasks
+    // })
 
-    render() {
-        return (
-            <div className="container">
-                <Header />
-                <TaskForm handleNewTask={this.handleNewTask} handlePriority={this.handleByPriority} />
-                <div className="row">
-                    <div className="col-md-6 col-xs-6 list">
-                        <h3>Todo</h3>
-                        <TasksList tasks={this.state.tasks} handleDone={this.handleDone} handleRemove={this.handleRemove} hideredo="hide-redo" />
-                    </div>
+handleByPriority() {
+    // take the array and show it by priority:
+    let tasks = Object.assign([], this.state.tasks);
+    tasks.sort((a, b) => (parseInt(a.priority) < parseInt(b.priority)) ? 1 : ((parseInt(b.priority) < parseInt(a.priority)) ? -1 : 0));
+    this.setState({
+        tasks: tasks
+    })
+}
+handleRemove(taskid) {
+    api.removeTask(taskid,
+        editedtasks => {
+            this.getAllTasks()
+            // let tasks = Object.assign([], editedtasks.all);
+            // this.setState({ tasks: tasks })
+        },
+        error => { console.log(error); }
 
-                    <div className="col-md-6 col-xs-6 list">
-                        <h3>Done</h3>
-                        <TasksList tasks={this.state.doneTasks} hidedone="hide-done" handleRemove={this.handleRemoveFromDoneList} handleRedo={this.handleRedo} />
-                    </div>
+    );
+}
 
+
+render() {
+    return (
+        <div className="container">
+            <Header />
+            <TaskForm handleNewTask={this.handleNewTask} handlePriority={this.handleByPriority} />
+            <div className="row">
+                <div className="col-md-6 col-xs-6 list">
+                    <h3>Todo</h3>
+                    <TasksList tasks={this.state.tasks} handleDone={this.handleDone} handleRemove={this.handleRemove} hideredo="hide-redo" />
                 </div>
 
-                <Footer />
-            </div >
-        )
+                <div className="col-md-6 col-xs-6 list">
+                    <h3>Done</h3>
+                    <TasksList tasks={this.state.doneTasks} hidedone="hide-done" handleRemove={this.handleRemove} handleRedo={this.handleRedo} />
+                </div>
 
-    }
+            </div>
+
+            <Footer />
+        </div >
+    )
+
+}
 }
 
 export default Container;
