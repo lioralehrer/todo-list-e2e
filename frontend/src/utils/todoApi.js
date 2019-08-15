@@ -52,3 +52,14 @@ export function createTask(task, successCallback, errorCallback) {
         error: errorCallback
     });
 }
+
+export function removeTask(task, successCallback, errorCallback){
+    $.ajax({
+        type: "DELETE",
+        url: "/tasks/delete",
+        contentType: "application/json",
+        data: JSON.stringify({"id":task}),
+        success: successCallback,
+        error: errorCallback
+    });
+}

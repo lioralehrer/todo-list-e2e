@@ -62,11 +62,14 @@ class Container extends React.Component {
         })
     }
     handleRemove(taskid) {
-        let tasks = Object.assign([], this.state.tasks);
-        tasks.splice(taskid, 1);
-        this.setState({
-            tasks: tasks
-        })
+        api.removeTask(taskid,
+            editedtasks => {
+                let tasks = Object.assign([], editedtasks.all);
+                this.setState({  tasks: tasks })
+            },
+                error => { console.log(error); }
+                    
+           );
     }
     handleRemoveFromDoneList(taskid) {
         let doneTasks = [...this.state.doneTasks];

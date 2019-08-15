@@ -13,14 +13,11 @@ import json
 @require_http_methods(['GET'])
 def get_tasks(request):
     data = list(Task.objects.values())
-    return JsonResponse({"all":data})
+    return JsonResponse({"all":data} , status=201)
 
 
 @require_http_methods(['POST'])
 def create_new_task(request):
-    print("-----------")
-    print (request.body)
-    print("---------")
     try:
         data = json.loads(request.body)
         new_task = Task(
@@ -37,3 +34,15 @@ def create_new_task(request):
 
     except Exception as ex:
         return JsonResponse({"error",ex}, status=500)
+
+@require_http_methods(['DELETE'])
+def delete_task(request):
+    print ("inside delete")
+    # try:
+    data = json.loads(request.body)
+    print("data= "+str(data))
+    Task.objects.get(id=data["id"]).delete()
+    new_data = list(Task.objects.values())
+    return JsonResponse({"all":new_data}, status=200)
+    # except Exception as ex:
+        # return JsonResponse({"error":str(ex)}, status=500)

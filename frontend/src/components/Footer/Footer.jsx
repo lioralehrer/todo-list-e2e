@@ -9,8 +9,8 @@ class Footer extends React.Component {
                         <div className="col-md-12">
                             <div className="copyright-text">
                                 <p>© 2019
-              <a href="https://www.appleseeds.org.il/bootcamp"> Appleseedes Bootcamp </a>Keren & Liora Todo-List-App
-              <a href="https://github.com/lioralehrer/todo-list"> Visit us in GitHub </a>
+              <a href="https://www.appleseeds.org.il/bootcamp"> Appleseedes Bootcamp </a> Liora Todo-List-App
+              <a href="https://github.com/lioralehrer/todo-list-e2e"> Visit us in GitHub </a>
                                 </p>
                             </div>
 

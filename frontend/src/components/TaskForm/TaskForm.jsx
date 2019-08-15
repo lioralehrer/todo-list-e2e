@@ -8,6 +8,7 @@ class TasksForm extends React.Component {
         this.handleSetPriority = this.handleSetPriority.bind(this);
         this.state = (
             {
+                id: "",
                 task: "",
                 description: "",
                 priority: 1,
@@ -45,8 +46,8 @@ class TasksForm extends React.Component {
                     <option>5</option>
                 </select>
                 <button onClick={this.handleSubmitTask} className="btn btn-success">Submit task</button>
-                <button onClick={this.handleSetPriority}>Set Tasks By Priority</button>
-                <button>Set Tasks by Date</button>
+                <button onClick={this.handleSetPriority}>Sort Tasks By Priority</button>
+                <button>Sort Tasks by Date</button>
             </div>
         )
     }

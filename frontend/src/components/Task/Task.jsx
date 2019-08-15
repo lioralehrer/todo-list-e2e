@@ -15,8 +15,7 @@ class Task extends React.Component {
     }
 
     sendIsRemoved() {
-        var taskid = parseInt(this.props.taskid);
-        this.props.handleRemove(taskid);
+        this.props.handleRemove(this.props.taskid);
     }
     sendRedo() {
         var taskid = parseInt(this.props.taskid);
