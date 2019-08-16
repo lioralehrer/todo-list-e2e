@@ -23,9 +23,10 @@ class Header extends React.Component {
         return (
             <div>
                 <div className="header">
-                    <a href="#default" className="logo">OurLogo</a>
+                    <div>
                     <a>{this.state.time}</a>
                     <a>Take care of your TIME</a>
+                    </div>
                     <div className="header-right">
                        
                         <a className="active" href="#">Home</a>

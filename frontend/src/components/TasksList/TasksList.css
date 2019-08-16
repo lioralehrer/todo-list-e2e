@@ -1,8 +1,28 @@
-li{
-    border: 3px solid rgb(206, 206, 6);
-   padding: 5px;
+ol 
+{
+    padding: 0%
+} 
+
+ol li{
+    border: 3px solid whitesmoke;
    background-color: bisque;
    margin: 3px;
+   padding: 5%;
    list-style: none;
+   width: 80%;
+   font-family: 'Glyphicons Halflings';
 }
+
+ol li p
+{
+    font-family: Verdana, Geneva, Tahoma, sans-serif
+}
+
+ol li button 
+{
+    margin:0 4px 0 0;
+    width: 25%;
+    height: 30px
+}
+
 

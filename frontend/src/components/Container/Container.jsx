@@ -25,7 +25,7 @@ class Container extends React.Component {
                 var tasks = []
                 var doneTasks = []
                 for (var i = 0; i < oldTasks.all.length; i++) {
-                    if (oldTasks.all[i].state == "TODO") {
+                    if (oldTasks.all[i].state === "TODO") {
                         tasks.push(oldTasks.all[i])
                     }
                     else {
@@ -77,57 +77,50 @@ class Container extends React.Component {
             error => { console.log(error); }
         );
     }
-    // let doneTasks = [...this.state.doneTasks];
-    // let tasks = doneTasks.splice(taskid, 1);
-    // this.setState({
-    //     tasks: [...this.state.tasks, tasks[0]],
-    //     doneTasks: doneTasks
-    // })
 
-handleByPriority() {
-    // take the array and show it by priority:
-    let tasks = Object.assign([], this.state.tasks);
-    tasks.sort((a, b) => (parseInt(a.priority) < parseInt(b.priority)) ? 1 : ((parseInt(b.priority) < parseInt(a.priority)) ? -1 : 0));
-    this.setState({
-        tasks: tasks
-    })
-}
-handleRemove(taskid) {
-    api.removeTask(taskid,
-        editedtasks => {
-            this.getAllTasks()
-            // let tasks = Object.assign([], editedtasks.all);
-            // this.setState({ tasks: tasks })
-        },
-        error => { console.log(error); }
+    handleByPriority() {
+        let tasks = Object.assign([], this.state.tasks);
+        tasks.sort((a, b) => (parseInt(a.priority) < parseInt(b.priority)) ? 1 : ((parseInt(b.priority) < parseInt(a.priority)) ? -1 : 0));
+        this.setState({
+            tasks: tasks
+        })
+    }
+    handleRemove(taskid) {
+        api.removeTask(taskid,
+            editedtasks => {
+                this.getAllTasks()
+            },
+            error => { console.log(error); }
 
-    );
-}
+        );
+    }
 
 
-render() {
-    return (
-        <div className="container">
-            <Header />
-            <TaskForm handleNewTask={this.handleNewTask} handlePriority={this.handleByPriority} />
-            <div className="row">
-                <div className="col-md-6 col-xs-6 list">
-                    <h3>Todo</h3>
-                    <TasksList tasks={this.state.tasks} handleDone={this.handleDone} handleRemove={this.handleRemove} hideredo="hide-redo" />
+    render() {
+        return (
+            <div className="container">
+                <Header />
+                <TaskForm handleNewTask={this.handleNewTask} handlePriority={this.handleByPriority} />
+                <div className="board-canvas">
+                    <div className="row board">
+                        <div className="col-md-6 col-xs-6 list">
+                            <h3>Todo</h3>
+                            <TasksList tasks={this.state.tasks} handleDone={this.handleDone} handleRemove={this.handleRemove} hideredo="hide-redo" />
+                        </div>
+
+                        <div className="col-md-6 col-xs-6 list">
+                            <h3>Done</h3>
+                            <TasksList tasks={this.state.doneTasks} hidedone="hide-done" handleRemove={this.handleRemove} handleRedo={this.handleRedo} />
+                        </div>
+
+                    </div>
                 </div>
 
-                <div className="col-md-6 col-xs-6 list">
-                    <h3>Done</h3>
-                    <TasksList tasks={this.state.doneTasks} hidedone="hide-done" handleRemove={this.handleRemove} handleRedo={this.handleRedo} />
-                </div>
+                <Footer />
+            </div >
+        )
 
-            </div>
-
-            <Footer />
-        </div >
-    )
-
-}
+    }
 }
 
 export default Container;

@@ -1,0 +1,32 @@
+
+.board{
+    margin: 3%;
+    padding: 5%
+}
+
+.panel button 
+{
+    border-radius: 3px;
+    color: #fff;
+    cursor: default;
+    font-size: 12px;
+    /*height: 32px;*/
+    line-height: 32px;
+    margin: 0 2px 4px 2px;
+    overflow: hidden;
+    position: relative;
+    text-decoration: none;
+    background-color: #3f4140
+}
+
+.panel input, select 
+{
+    height: 28px;
+    margin-right: 5px
+}
+
+.panel label, span
+{
+    font-weight: 400;
+    margin-right: 5px;
+}

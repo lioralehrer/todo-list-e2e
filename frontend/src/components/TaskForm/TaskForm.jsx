@@ -32,12 +32,12 @@ class TasksForm extends React.Component {
     }
     render() {
         return (
-            <div >
+            <div className="panel">
                 <span className="glyphicon glyphicon-list"></span>
                 <input className="task-input " data-bind="task" onChange={this.handleInputChange} type="text" placeholder="task:" />
                 <span className="glyphicon glyphicon-list"></span>
                 <input className="task-input " data-bind="description" onChange={this.handleInputChange} type="text" placeholder="discription:" />
-                <label for="priority">Select list:</label>
+                <label for="priority">Priority:</label>
                 <select className="priority" data-bind="priority" onChange={this.handleInputChange} id="priority">
                     <option>1</option>
                     <option>2</option>
@@ -45,9 +45,9 @@ class TasksForm extends React.Component {
                     <option>4</option>
                     <option>5</option>
                 </select>
-                <button onClick={this.handleSubmitTask} className="btn btn-success">Submit task</button>
-                <button onClick={this.handleSetPriority}>Sort Tasks By Priority</button>
-                <button>Sort Tasks by Date</button>
+                <button onClick={this.handleSubmitTask} >Submit task</button>
+                <button onClick={this.handleSetPriority}>Sort by Priority</button>
+                 {/* <button>Sort by Date</button> */}
             </div>
         )
     }

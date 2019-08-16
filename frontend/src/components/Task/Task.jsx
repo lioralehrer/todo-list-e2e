@@ -24,8 +24,11 @@ class Task extends React.Component {
 
     render() {
         return (
-            <li  taskid={this.props.taskid} className="glyphicon glyphicon-pencil" >
-                {`task: ${this.props.title}  description: ${this.props.description} priority:  ${this.props.priority}`}
+            <li  taskid={this.props.taskid}  >
+                <p>
+                <h3>{`  task: ${this.props.title}`} </h3>
+                {`description: ${this.props.description}`}</p><p>{`priority:  ${this.props.priority}`}
+                </p>
                 <button className={this.props.hideDone}  onClick={this.sendIsDone}><span className="glyphicon glyphicon-ok"></span>Done</button>
                 <button onClick={this.sendIsRemoved}  ><span className="glyphicon glyphicon-trash"></span></button>
                 <button className={this.props.hideRedo}  onClick={this.sendRedo} >Redo</button>
