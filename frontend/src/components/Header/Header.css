@@ -6,7 +6,9 @@
     background-image: url(images/logo.PNG) ;
     padding: 20px 10px;
   }
-  
+  .header div {
+    float: right;
+  }
   .header a {
     float: left;
     color: black;

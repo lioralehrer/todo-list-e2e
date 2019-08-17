@@ -29,17 +29,17 @@ class Header extends React.Component {
                     </div>
                     <div className="header-right">
                        
-                        <a className="active" href="#">Home</a>
+                        {/* <a className="active" href="#">Home</a>
                         <a href="#">Contact</a>
-                        <a href="#">About</a>
+                        <a href="#">About</a> */}
                     </div>
                 </div>
-
+{/* 
                 <div style={{paddingLeft:20+"px"}}>
                     <h1>Todo List</h1>
-                    <p>A new way to manage your work.</p>
-                    <p>Plan. Organize. Track. In one visual space.</p>
-                </div>
+                    {/* <p>A new way to manage your work.</p> */}
+                    {/* <p>Plan. Organize. Track. In one visual space.</p>
+                </div> */} 
             </div>
         )
     }
